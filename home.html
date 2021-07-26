@@ -1,0 +1,137 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" />
+    <title>Weather App</title>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: rgb(99, 173, 247);
+    
+
+    
+}
+
+.container{
+    background-color: white;
+   
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    display:flex;
+    padding: 5px;
+    margin-top: 200px;
+    border-radius: 5px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    
+    
+}
+.box:hover{
+    transform: translate(-0%,-2%);}
+
+    </style>
+</head>
+<body>
+      <div class="container">
+          <div class="wave-one"></div>
+          <div class="wave-two"></div>
+
+          <div class="wave-three"></div>
+           
+          <div id="weathercon">
+            <i class="fas fa-sun" style="color:rgb(240, 149, 14);"> </i></div>
+            <div class="info">
+                <h2 class="location"><i class="fas fa-street-view"></i>{%location%},{%country%}</h2>
+                <p id="date"> WED | OCT 23 | 10:49AM</p>
+                <h1 class="temp">{%tempval%} &deg;C</h1>
+                <h3 class="tempmin_max"> Min {%tempmin%}&deg;C | Max {%tempmax%}&deg;C</h3>
+            </div>
+
+
+      </div>
+
+
+
+
+      <script>
+          const curDate=document.getElementById("date");
+          let weathercon=document.getElementById("weathercon");
+          const tempStatus="{%tempstatus%}";
+          if(tempStatus=="Sunny"){
+              weathercon.innerHTML=" <i class='fas fa-sun' style='color:rgb(240, 149, 14)';> </i>";
+          }
+         else if(tempStatus=="Clouds"){
+              weathercon.innerHTML=" <i class='fas fa-cloud' style='color:#f1f2f6';> </i>";
+          }
+          else if(tempStatus=="Rainy"){
+              weathercon.innerHTML=" <i class='fas fa-rain' style='color:#a4b0be';> </i>";
+          }
+          else{
+              weathercon.innerHTML=" <i class='fas fa-cloud' style='color:#44c3de';> </i>";
+          }
+          const getCurrentDay= () => {
+              var weekday=new Array(7);
+              weekday[0]="Sunday";
+              weekday[1]="Monday";
+              weekday[2]="Tuesday";
+              weekday[3]="Wednesday";
+              weekday[4]="Thursday";
+              weekday[5]="Friday";
+              weekday[6]="Saturday";
+
+
+             let currentTime= new Date();
+             let day=weekday[currentTime.getDay()];
+             return day;
+          };
+          const getCurrentTime = () => {
+              var months=[
+                "Jan", "Feb","Mar",
+                "Apr",
+                "May",
+                "June",
+                "July",
+                "Aug",
+                "Sept",
+                "Oct",
+                "Nov",
+                "Dec",
+               
+              ];
+            var now= new Date();
+            var month= months[now.getMonth()];
+            var date=now.getDate();
+            //var year=currenTime.getFullYear();
+
+            let hr=now.getHours();
+            let min=now.getMinutes();
+            let pr="AM";
+            if(hr>11){
+                pr="PM";
+                if(hr>12) hr=hr-12;
+            }
+            if(min<10){
+                min="0"+min;
+            }
+            
+            return `${month} ${date} | ${hr}:${min} ${pr} `;
+            //console.log(month + "/" + day + hr + min);
+
+          };
+
+          //getCurrentTime();
+          curDate.innerHTML= getCurrentDay() + " | "+ getCurrentTime();
+
+
+      </script>
+</body>
+</html>
